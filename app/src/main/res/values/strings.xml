@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WxVideoCall</string>
+    <string name="acc_service_label">微信视频呼叫助手</string>
+    <string name="acc_service_desc">自动完成微信内搜索联系人并点开视频通话，仅在微信内生效。</string>
+</resources>
