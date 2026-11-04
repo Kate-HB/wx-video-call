@@ -102,14 +102,18 @@ class CallFlowActivity : Activity() {
         if (!service.startCall(
                 name,
                 intent.getBooleanExtra("dryRun", false),
-                intent.getStringExtra("stopAfter")
+                intent.getStringExtra("stopAfter"),
+                intent.getBooleanExtra("calibrate", false)
             )
         ) {
             finish()
             return
         }
-        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(launch)
+        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        runCatching { startActivity(launch) }.onFailure {
+            service.onInterrupt()
+            Toast.makeText(this, "系统阻止打开微信，请检查后台启动权限", Toast.LENGTH_LONG).show()
+        }
         finish()
     }
 
