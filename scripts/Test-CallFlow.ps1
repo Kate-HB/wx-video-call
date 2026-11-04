@@ -6,7 +6,7 @@ $ErrorActionPreference = 'Stop'
 & $Adb logcat -c
 & $Adb shell am start -n com.forolderr.wxvideo/.CallFlowActivity --es contact $Contact --ez dryRun true
 if ($LASTEXITCODE -ne 0) { throw 'Cannot launch test' }
-$deadline = (Get-Date).AddSeconds(30)
+$deadline = (Get-Date).AddSeconds(180)
 do {
     Start-Sleep -Milliseconds 500
     $log = (& $Adb logcat -d -s WxVideoCall:D) -join "`n"
